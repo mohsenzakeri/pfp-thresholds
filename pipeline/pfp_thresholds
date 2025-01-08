@@ -179,20 +179,20 @@ def main():
     start0 = start = time.time()
     if args.t>0:
       if args.f:
-        command = "{exe} {file} -w {wsize} -p {modulus} -t {th} -f".format(
+        command = "{exe} {file} -w {wsize} -p {modulus} -c -t {th} -f".format(
                 exe = os.path.join(args.bigbwt_dir,parse_fasta_exe),
                 wsize=args.wsize, modulus = args.mod, th=args.t, file=args.input)
       else:
-        command = "{exe} {file} -w {wsize} -p {modulus} -t {th}".format(
+        command = "{exe} {file} -w {wsize} -p {modulus} -c -t {th}".format(
                 exe = os.path.join(args.bigbwt_dir,parse_exe),
                 wsize=args.wsize, modulus = args.mod, th=args.t, file=args.input)
     else:
       if args.f:
-        command = "{exe} {file} -w {wsize} -p {modulus} -t {th} -f".format(
+        command = "{exe} {file} -w {wsize} -p {modulus} -c -t {th} -f".format(
                 exe = os.path.join(args.bigbwt_dir,parseNT_exe),
                 wsize=args.wsize, modulus = args.mod, th=args.t, file=args.input)
       else:
-        command = "{exe} {file} -w {wsize} -p {modulus} -t".format(
+        command = "{exe} {file} -w {wsize} -p {modulus} -c -t".format(
                 exe = os.path.join(args.bigbwt_dir,parseNT_exe),
                 wsize=args.wsize, modulus = args.mod, file=args.input)
     if args.v: command += " -v"

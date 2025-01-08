@@ -22,7 +22,8 @@ endif()
 ## Add Big-BWT
 FetchContent_Declare(
   bigbwt
-  GIT_REPOSITORY https://github.com/alshai/Big-BWT.git
+  GIT_REPOSITORY https://github.com/vshiv18/Big-BWT/
+  GIT_TAG probing
   )
   
 FetchContent_GetProperties(bigbwt)
