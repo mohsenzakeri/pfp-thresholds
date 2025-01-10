@@ -23,7 +23,7 @@ endif()
 FetchContent_Declare(
   bigbwt
   GIT_REPOSITORY https://github.com/vshiv18/Big-BWT/
-  GIT_TAG probing
+  GIT_TAG 6a2960cbc613b24b42fa63d6371754571018f577
   )
   
 FetchContent_GetProperties(bigbwt)
