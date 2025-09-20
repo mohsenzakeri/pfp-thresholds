@@ -137,10 +137,10 @@ if(NOT rlbwt2lcp_POPULATED)
   FetchContent_Populate(rlbwt2lcp)
 
   # Apply patches to fix missing cstdint includes
-  file(READ "${rlbwt2lcp_SOURCE_DIR}/internal/include.hpp" RLINCLUDE_CONTENT)
-  if(NOT RLINCLUDE_CONTENT MATCHES "#include <cstdint>")
-    string(REGEX REPLACE "(#ifndef INTERNAL_INCLUDE_HPP_)" "\\1\n#include <cstdint>" RLINCLUDE_CONTENT "${RLINCLUDE_CONTENT}")
-    file(WRITE "${rlbwt2lcp_SOURCE_DIR}/internal/include.hpp" "${RLINCLUDE_CONTENT}")
+  file(READ "${rlbwt2lcp_SOURCE_DIR}/internal/include.hpp" INCLUDE_CONTENT)
+  if(NOT INCLUDE_CONTENT MATCHES "#include <cstdint>")
+    string(REGEX REPLACE "(#define INCLUDE_HPP_)" "\\1\n#include <cstdint>" INCLUDE_CONTENT "${INCLUDE_CONTENT}")
+    file(WRITE "${rlbwt2lcp_SOURCE_DIR}/internal/include.hpp" "${INCLUDE_CONTENT}")
   endif()
 
   add_subdirectory(${rlbwt2lcp_SOURCE_DIR} ${rlbwt2lcp_BINARY_DIR} )#EXCLUDE_FROM_ALL)
@@ -167,7 +167,7 @@ if(NOT bwt2lcp_POPULATED)
   # Apply patches to fix missing cstdint includes
   file(READ "${bwt2lcp_SOURCE_DIR}/internal/include.hpp" INCLUDE_CONTENT)
   if(NOT INCLUDE_CONTENT MATCHES "#include <cstdint>")
-    string(REGEX REPLACE "(#ifndef INTERNAL_INCLUDE_HPP_)" "\\1\n#include <cstdint>" INCLUDE_CONTENT "${INCLUDE_CONTENT}")
+    string(REGEX REPLACE "(#define INCLUDE_HPP_)" "\\1\n#include <cstdint>" INCLUDE_CONTENT "${INCLUDE_CONTENT}")
     file(WRITE "${bwt2lcp_SOURCE_DIR}/internal/include.hpp" "${INCLUDE_CONTENT}")
   endif()
 
