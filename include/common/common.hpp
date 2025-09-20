@@ -29,6 +29,7 @@
 #include <cstdio>
 #include <ctime>
 #include <assert.h>
+#include <cstdint>`
 
 #include <sys/time.h>
 
