@@ -1,6 +1,13 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.13)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules")
 
+
+# Enforce C++14 standard
+# ------------------------------------------------------------------------------
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+
 # Set a default build type if none was specified
 # ------------------------------------------------------------------------------
 if(NOT CMAKE_BUILD_TYPE)
