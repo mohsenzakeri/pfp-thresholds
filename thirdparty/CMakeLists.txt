@@ -22,16 +22,17 @@ endif()
 ## Add Big-BWT
 FetchContent_Declare(
   bigbwt
-  GIT_REPOSITORY https://github.com/vshiv18/Big-BWT/
+  # GIT_REPOSITORY https://github.com/vshiv18/Big-BWT/
+  GIT_REPOSITORY https://github.com/alshai/Big-BWT/
   # The following is from probing branch (19 March 2024):
   # https://github.com/vikshiv/Big-BWT/commit/6a2960cbc613b24b42fa63d6371754571018f577
   # GIT_TAG 6a2960cbc613b24b42fa63d6371754571018f577
   # The following is the latest from the master branch in the original repository (28 January 2025):
   # https://github.com/alshai/Big-BWT/commit/5b00650517c2bf1deef81c010985720f2f95ab03
-  # GIT_TAG 5b00650517c2bf1deef81c010985720f2f95ab03
+  GIT_TAG 5b00650517c2bf1deef81c010985720f2f95ab03
   # The following is the latest from the master branch in Vikram's repository (12 June 2025):
   # https://github.com/vikshiv/Big-BWT/commit/c93b2d2ce10c2c622181d4d91209d909e42b3050
-  GIT_TAG c93b2d2ce10c2c622181d4d91209d909e42b3050
+  # GIT_TAG c93b2d2ce10c2c622181d4d91209d909e42b3050
 )
   
 FetchContent_GetProperties(bigbwt)
