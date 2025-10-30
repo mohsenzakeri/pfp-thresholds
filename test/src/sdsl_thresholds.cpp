@@ -34,7 +34,9 @@
 #include <sdsl/construct_lcp.hpp>
 #include <sdsl/construct_bwt.hpp>
 
+#if USE_MALLOC_COUNT
 #include <malloc_count.h>
+#endif
 
 
 int main(int argc, char* const argv[]) {
@@ -143,8 +145,13 @@ int main(int argc, char* const argv[]) {
   auto time = std::chrono::duration<double, std::ratio<1>>(t_end - t_start).count();
   verbose("Elapsed time (s): ", time);
 
+#if USE_MALLOC_COUNT
   auto mem_peak = malloc_count_peak();
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  size_t mem_peak = 0;
+  verbose("Memory peak: N/A");
+#endif
 
   size_t space = 0;
   if (args.memo)

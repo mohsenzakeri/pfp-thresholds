@@ -27,7 +27,10 @@
 #include <sdsl/io.hpp>
 #include <ms_pointers.hpp>
 #include <pfp_ra.hpp>
+
+#if USE_MALLOC_COUNT
 #include <malloc_count.h>
+#endif
 
 #include <iostream>
 #include <omp.h>
@@ -81,7 +84,11 @@ int main(int argc, char *const argv[])
   std::chrono::high_resolution_clock::time_point t_insert_end = std::chrono::high_resolution_clock::now();
 
   verbose("Matching statistics index construction complete");
+#if USE_MALLOC_COUNT
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  verbose("Memory peak: N/A");
+#endif
   verbose("Elapsed time (s): ", std::chrono::duration<double, std::ratio<1>>(t_insert_end - t_insert_start).count());
 
   verbose("Building random access");
@@ -92,10 +99,18 @@ int main(int argc, char *const argv[])
   t_insert_end = std::chrono::high_resolution_clock::now();
 
   verbose("Matching statistics index construction complete");
+#if USE_MALLOC_COUNT
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  verbose("Memory peak: N/A");
+#endif
   verbose("Elapsed time (s): ", std::chrono::duration<double, std::ratio<1>>(t_insert_end - t_insert_start).count());
 
+#if USE_MALLOC_COUNT
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  verbose("Memory peak: N/A");
+#endif
   verbose("Elapsed time (s): ", std::chrono::duration<double, std::ratio<1>>(t_insert_end - t_insert_start).count());
 
   verbose("Processing patterns");
@@ -154,11 +169,20 @@ int main(int argc, char *const argv[])
 
   t_insert_end = std::chrono::high_resolution_clock::now();
 
+#if USE_MALLOC_COUNT
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  verbose("Memory peak: N/A");
+#endif
   verbose("Elapsed time (s): ", std::chrono::duration<double, std::ratio<1>>(t_insert_end - t_insert_start).count());
 
+#if USE_MALLOC_COUNT
   auto mem_peak = malloc_count_peak();
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  size_t mem_peak = 0;
+  verbose("Memory peak: N/A");
+#endif
 
   size_t space = 0;
   if (args.memo)

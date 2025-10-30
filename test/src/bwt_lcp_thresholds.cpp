@@ -34,7 +34,9 @@
 #include <unistd.h>
 #include <dna_bwt_n.hpp>
 
+#if USE_MALLOC_COUNT
 #include <malloc_count.h>
+#endif
 
 
 template<typename bwt_t>
@@ -129,8 +131,13 @@ void build_thresholds(Args args){
   auto time = std::chrono::duration<double, std::ratio<1>>(t_end - t_start).count();
   verbose("Elapsed time (s): ", time);
 
+#if USE_MALLOC_COUNT
   auto mem_peak = malloc_count_peak();
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  size_t mem_peak = 0;
+  verbose("Memory peak: N/A");
+#endif
 
   size_t space = 0;
   if (args.memo)

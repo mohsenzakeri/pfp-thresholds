@@ -35,7 +35,9 @@
 #include <pfp_thresholds.hpp>
 // #include <pfp_lcp.hpp>
 
+#if USE_MALLOC_COUNT
 #include <malloc_count.h>
+#endif
 
 int main(int argc, char* const argv[]) {
 
@@ -62,7 +64,11 @@ int main(int argc, char* const argv[]) {
   std::chrono::high_resolution_clock::time_point t_insert_end = std::chrono::high_resolution_clock::now();
 
   verbose("PFP DS construction complete");
+#if USE_MALLOC_COUNT
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  verbose("Memory peak: N/A");
+#endif
   verbose("Elapsed time (s): ", std::chrono::duration<double, std::ratio<1>>(t_insert_end - t_insert_start).count());
   // auto time = std::chrono::duration<double, std::ratio<1>>(t_insert_end - t_insert_start).count();
 
@@ -135,8 +141,13 @@ int main(int argc, char* const argv[]) {
   auto time = std::chrono::duration<double, std::ratio<1>>(t_end - t_start).count();
   verbose("Elapsed time (s): ", time);
 
+#if USE_MALLOC_COUNT
   auto mem_peak = malloc_count_peak();
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  size_t mem_peak = 0;
+  verbose("Memory peak: N/A");
+#endif
 
   size_t space = 0;
   if (args.memo)

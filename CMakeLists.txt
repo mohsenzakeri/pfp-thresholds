@@ -25,6 +25,7 @@ SET(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
 option(COMPILE_BENCHMARKS "Set ON to compile the benchmarks" OFF)
 option(COMPILE_TESTS "Set ON to compile the tests" OFF)
+option(USE_MALLOC_COUNT "Set to 1 to enable malloc_count memory profiling" 0)
 
 # Set environment
 # ------------------------------------------------------------------------------

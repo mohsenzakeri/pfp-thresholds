@@ -34,7 +34,9 @@
 #include <pfp.hpp>
 #include <pfp_lcp.hpp>
 
+#if USE_MALLOC_COUNT
 #include <malloc_count.h>
+#endif
 
 int main(int argc, char* const argv[]) {
 
@@ -64,7 +66,11 @@ int main(int argc, char* const argv[]) {
   verbose("Elapsed time (s): ", std::chrono::duration<double, std::ratio<1>>(t_insert_end - t_insert_start).count());
   // auto time = std::chrono::duration<double, std::ratio<1>>(t_insert_end - t_insert_start).count();
 
+#if USE_MALLOC_COUNT
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  verbose("Memory peak: N/A");
+#endif
   std::chrono::high_resolution_clock::time_point t_start = std::chrono::high_resolution_clock::now();
 
   // This code gets timed
@@ -74,8 +80,13 @@ int main(int argc, char* const argv[]) {
   
   pfp_lcp lcp(pf, args.filename);
 
+#if USE_MALLOC_COUNT
   auto mem_peak = malloc_count_peak();
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  size_t mem_peak = 0;
+  verbose("Memory peak: N/A");
+#endif
 
   size_t space = 0;
   if (args.memo)

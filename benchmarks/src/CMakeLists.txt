@@ -1,6 +1,11 @@
 
 add_executable(pfp_ms_benchmarks pfp_ms_benchmarks.cpp)
-target_link_libraries(pfp_ms_benchmarks common pfp ri gsacak sdsl divsufsort divsufsort64 malloc_count benchmark pthread)
+if(USE_MALLOC_COUNT EQUAL 1)
+  target_link_libraries(pfp_ms_benchmarks common pfp ri gsacak sdsl divsufsort divsufsort64 malloc_count benchmark pthread)
+  target_compile_definitions(pfp_ms_benchmarks PUBLIC USE_MALLOC_COUNT=1)
+else()
+  target_link_libraries(pfp_ms_benchmarks common pfp ri gsacak sdsl divsufsort divsufsort64 benchmark pthread)
+endif()
 target_include_directories(pfp_ms_benchmarks PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
 target_include_directories(pfp_ms_benchmarks PUBLIC "../../include/ms")
 target_include_directories(pfp_ms_benchmarks PUBLIC "../../include/pfp")

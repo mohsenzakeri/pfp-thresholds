@@ -33,7 +33,9 @@
 #include <ms_pointers.hpp>
 #include <pfp_ra.hpp>
 
+#if USE_MALLOC_COUNT
 #include <malloc_count.h>
+#endif
 
 typedef std::pair<std::string, std::vector<uint8_t>> pattern_t;
 
@@ -96,7 +98,11 @@ int main(int argc, char* const argv[]) {
   std::chrono::high_resolution_clock::time_point t_insert_end = std::chrono::high_resolution_clock::now();
 
   verbose("Matching statistics index construction complete");
+#if USE_MALLOC_COUNT
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  verbose("Memory peak: N/A");
+#endif
   verbose("Elapsed time (s): ", std::chrono::duration<double, std::ratio<1>>(t_insert_end - t_insert_start).count());
   
 
@@ -108,15 +114,24 @@ int main(int argc, char* const argv[]) {
   t_insert_end = std::chrono::high_resolution_clock::now();
 
   verbose("Matching statistics index construction complete");
+#if USE_MALLOC_COUNT
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  verbose("Memory peak: N/A");
+#endif
   verbose("Elapsed time (s): ", std::chrono::duration<double, std::ratio<1>>(t_insert_end - t_insert_start).count());
 
   std::chrono::high_resolution_clock::time_point t_end = std::chrono::high_resolution_clock::now();
   auto time = std::chrono::duration<double, std::ratio<1>>(t_end - t_start).count();
   verbose("Total construction time (s): ", time);
 
+#if USE_MALLOC_COUNT
   auto mem_peak = malloc_count_peak();
   verbose("Memory peak: ", malloc_count_peak());
+#else
+  size_t mem_peak = 0;
+  verbose("Memory peak: N/A");
+#endif
 
   sdsl::nullstream ns;
 

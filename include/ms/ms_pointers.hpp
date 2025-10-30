@@ -26,7 +26,9 @@
 
 #include <common.hpp>
 
+#if USE_MALLOC_COUNT
 #include <malloc_count.h>
+#endif
 
 #include <sdsl/rmq_support.hpp>
 #include <sdsl/int_vector.hpp>
@@ -121,7 +123,11 @@ public:
         std::chrono::high_resolution_clock::time_point t_insert_end = std::chrono::high_resolution_clock::now();
 
         verbose("R-index construction complete");
+#if USE_MALLOC_COUNT
         verbose("Memory peak: ", malloc_count_peak());
+#else
+        verbose("Memory peak: N/A");
+#endif
         verbose("Elapsed time (s): ", std::chrono::duration<double, std::ratio<1>>(t_insert_end - t_insert_start).count());
 
 
@@ -156,7 +162,11 @@ public:
 
         t_insert_end = std::chrono::high_resolution_clock::now();
 
+#if USE_MALLOC_COUNT
         verbose("Memory peak: ", malloc_count_peak());
+#else
+        verbose("Memory peak: N/A");
+#endif
         verbose("Elapsed time (s): ", std::chrono::duration<double, std::ratio<1>>(t_insert_end - t_insert_start).count());
 
     }

@@ -1,2 +1,7 @@
 add_executable(fasta2plain fasta2plain.cpp)
-target_link_libraries(fasta2plain common sdsl malloc_count)
+if(USE_MALLOC_COUNT EQUAL 1)
+  target_link_libraries(fasta2plain common sdsl malloc_count)
+  target_compile_definitions(fasta2plain PUBLIC USE_MALLOC_COUNT=1)
+else()
+  target_link_libraries(fasta2plain common sdsl)
+endif()
